@@ -1,3 +1,11 @@
+html {
+  visibility: hidden;
+  background-color: #ffffff; /* 라이트 모드 기본값 */
+}
+html[data-theme='dark'] {
+  background-color: #111827; /* 다크 모드 기본값 */
+}
+
 :root {
   /* ===== 색상 ===== */
   /* Primary Colors */

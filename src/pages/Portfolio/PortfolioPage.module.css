@@ -1,16 +1,165 @@
 .container {
   display: flex;
   flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  color: var(--color-text-secondary);
+}
+
+/* Profile Section */
+.profileSection {
+  padding: var(--spacing-8) 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.profileContent {
+  max-width: 700px;
+}
+
+.name {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-2);
 }
 
 .title {
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary-500);
   margin-bottom: var(--spacing-6);
 }
 
-.description {
+.bio {
   font-size: var(--font-size-base);
   color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  white-space: pre-line;
+  margin-bottom: var(--spacing-6);
+}
+
+.contactLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-6);
+}
+
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.contactLink:hover {
+  color: var(--color-primary-500);
+}
+
+.downloadButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3) var(--spacing-6);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-inverse);
+  background-color: var(--color-primary-500);
+  border-radius: var(--radius-base);
+  transition: background-color var(--transition-fast);
+}
+
+.downloadButton:hover {
+  background-color: var(--color-primary-600);
+}
+
+/* Skills Section */
+.skillsSection {
+  padding: var(--spacing-8) 0;
+}
+
+.sectionTitle {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-8);
+}
+
+.skillGroups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-8);
+}
+
+.skillGroup {
+  padding: var(--spacing-6);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+}
+
+.skillCategory {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-4);
+}
+
+.skillList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+/* Projects Section */
+.projectsSection {
+  padding: var(--spacing-8) 0;
+}
+
+.highlightedProject {
+  margin-bottom: var(--spacing-12);
+}
+
+.subsectionTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-4);
+}
+
+.otherProjects {
+  margin-top: var(--spacing-8);
+}
+
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: var(--spacing-6);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .container {
+    gap: var(--spacing-12);
+  }
+
+  .name {
+    font-size: var(--font-size-3xl);
+  }
+
+  .skillGroups {
+    grid-template-columns: 1fr;
+  }
+
+  .projectGrid {
+    grid-template-columns: 1fr;
+  }
 }
