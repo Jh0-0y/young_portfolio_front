@@ -4,7 +4,7 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/young_portfolio_front/',  // ← 본인 저장소명으로 변경
+  base: 'jh0-0y.github.io',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
