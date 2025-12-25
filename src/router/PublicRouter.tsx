@@ -1,5 +1,4 @@
-import { ProjectDetailPage } from '@/components/portfolio'
-import { PortfolioPage } from '@/pages/portfolio'
+import { PortfolioPage, ProjectDetailPage } from '@/pages/portfolio'
 import { Routes, Route } from 'react-router-dom'
 
 export default function PublicRouter() {
