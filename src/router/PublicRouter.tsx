@@ -10,5 +10,4 @@ export default function PublicRouter() {
         <Route path='*' element={<NotFoundPage />} />
     </Routes>
   )
-
 }
