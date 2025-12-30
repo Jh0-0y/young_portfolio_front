@@ -1,25 +1,42 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { FiArrowLeft, FiGithub, FiExternalLink, FiFileText, FiUsers, FiUser, FiCalendar, FiTrendingUp } from 'react-icons/fi';
-import { getProjectById, getAchievementsByProjectId } from '@/constants/portfolioData';
+import { FiArrowLeft, FiGithub, FiExternalLink, FiFileText, FiUsers, FiUser, FiCalendar, FiTrendingUp, FiSun, FiMoon } from 'react-icons/fi';
+import { getProjectById, getAchievementsByProjectId, aboutData } from '@/constants/portfolio';
 import { SkillBadge } from '@/components/common';
-import PortfolioHeader from '../../components/portfolio/PortfolioHeader';
+import { useDarkMode } from '@/hooks';
 import styles from './ProjectDetailPage.module.css';
 
 const ProjectDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { darkMode, toggleDarkMode } = useDarkMode();
   const project = id ? getProjectById(id) : undefined;
 
   // 해당 프로젝트의 성과 필터링
   const projectAchievements = id ? getAchievementsByProjectId(id) : [];
 
+  const DetailHeader = () => (
+    <header className={styles.header}>
+      <button onClick={() => navigate('/')} className={styles.backButton}>
+        <FiArrowLeft size={18} />
+        <span>{aboutData.name}</span>
+      </button>
+      <button
+        className={styles.themeButton}
+        onClick={toggleDarkMode}
+        title={darkMode ? '라이트 모드' : '다크 모드'}
+      >
+        {darkMode ? <FiSun size={18} /> : <FiMoon size={18} />}
+      </button>
+    </header>
+  );
+
   if (!project) {
     return (
       <div className={styles.page}>
-        <PortfolioHeader />
+        <DetailHeader />
         <main className={styles.notFound}>
           <h1>프로젝트를 찾을 수 없습니다</h1>
-          <button onClick={() => navigate('/portfolio')} className={styles.backButton}>
+          <button onClick={() => navigate('/')} className={styles.backButton}>
             <FiArrowLeft size={18} />
             돌아가기
           </button>
@@ -30,18 +47,12 @@ const ProjectDetailPage = () => {
 
   return (
     <div className={styles.page}>
-      <PortfolioHeader />
+      <DetailHeader />
 
       <main className={styles.main}>
         <div className={styles.container}>
-          {/* 뒤로가기 */}
-          <button onClick={() => navigate('/portfolio')} className={styles.backLink}>
-            <FiArrowLeft size={18} />
-            프로젝트 목록
-          </button>
-
-          {/* 헤더 */}
-          <header className={styles.header}>
+          {/* 프로젝트 헤더 */}
+          <div className={styles.projectHeader}>
             <div className={styles.meta}>
               <span className={styles.period}>
                 <FiCalendar size={14} />
@@ -84,7 +95,7 @@ const ProjectDetailPage = () => {
                 </a>
               )}
             </div>
-          </header>
+          </div>
 
           {/* 기술 스택 */}
           <section className={styles.section}>

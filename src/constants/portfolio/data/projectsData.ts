@@ -1,7 +1,61 @@
-import type { ProjectData } from '../types';
+// ========================================
+// 🎯 Projects 데이터
+// ========================================
+
+import type { ProjectData } from '@/types/portfolio';
 
 export const projectsData: ProjectData[] = [
-  // 1. 실시간 코딩 교육 플랫폼
+
+  // ------------------------------------
+  // 1. 개인 포트폴리오 & 블로그
+  // ------------------------------------
+  {
+    id: 'portfolio-blog',
+    title: '개인 포트폴리오 & 블로그',
+    period: '2025.12 - 현재',
+    role: '풀스택 개발 (1인 프로젝트)',
+    shortDescription: '포트폴리오와 기술 블로그를 통합한 개인 웹사이트',
+    description:
+      '포트폴리오와 기술 블로그를 통합한 개인 웹사이트입니다. 마크다운 기반 글 작성, 다크모드, 카테고리/태그 필터링 기능을 제공합니다.',
+    techStack: ['java', 'spring-boot', 'jpa', 'mariadb', 'render','react', 'typescript', 'zustand','github-actions',],
+    highlights: [
+      'GitHub Pages + Render를 활용한 무료 배포 환경 구축',
+      'CI/CD 파이프라인 구성으로 push 시 자동 배포',
+      'CSS 변수 기반 다크모드 구현 및 FOUC 문제 해결',
+    ],
+    background: 
+      `취업 준비를 위한 포트폴리오와 학습 내용을 정리할 블로그가 필요했습니다.
+      기존 플랫폼 대신 직접 구축하여 풀스택 개발 역량을 보여주고자 했습니다.`,
+    challenges: [
+      {
+        problem: '다크모드 전환 시 화면 깜박임(FOUC) 발생',
+        solution: 'HTML head에 인라인 스크립트로 테마 사전 적용',
+        result: '깜박임 없는 부드러운 테마 전환',
+      },
+      {
+        problem: '무료로 풀스택 서비스 배포 필요',
+        solution: 'Frontend는 GitHub Pages, Backend는 Render 활용',
+        result: '월 비용 0원으로 서비스 운영',
+      },
+    ],
+    results: [
+      '완전 자동화된 CI/CD 파이프라인 구축',
+      'Lighthouse 성능 점수 95+ 달성',
+    ],
+    learned: [
+      '처음부터 끝까지 혼자 설계/구현하는 경험',
+      'CI/CD 파이프라인 구축 능력',
+      'SEO 및 웹 성능 최적화 기법',
+    ],
+    links: {
+      github: 'https://github.com/your-username/portfolio',
+      demo: 'https://your-username.github.io/portfolio',
+    },
+    isTeamProject: false,
+  },
+  // ------------------------------------
+  // 2. 실시간 코딩 교육 플랫폼
+  // ------------------------------------
   {
     id: 'realtime-coding-platform',
     title: '실시간 코딩 교육 플랫폼',
@@ -17,10 +71,9 @@ export const projectsData: ProjectData[] = [
       'Redis Pub/Sub을 활용한 다중 서버 환경 실시간 동기화 구현',
       '강사/학생 역할별 편집 권한 시스템 및 Lock 메커니즘 설계',
     ],
-    background: 
-    `코딩 교육 현장에서 강사가 작성하는 코드를 학생들이 실시간으로 확인하고, 
-    필요시 학생도 코드를 수정할 수 있는 양방향 협업 환경이 필요했습니다.
-    기존의 화면 공유 방식은 지연이 크고, 학생이 직접 코드를 수정해볼 수 없는 한계가 있었습니다.`,
+    background: `코딩 교육 현장에서 강사가 작성하는 코드를 학생들이 실시간으로 확인하고, 
+필요시 학생도 코드를 수정할 수 있는 양방향 협업 환경이 필요했습니다.
+기존의 화면 공유 방식은 지연이 크고, 학생이 직접 코드를 수정해볼 수 없는 한계가 있었습니다.`,
     challenges: [
       {
         problem: '전체 코드를 매번 전송하면 네트워크 부하가 심함',
@@ -55,54 +108,6 @@ export const projectsData: ProjectData[] = [
     isTeamProject: true,
     teamSize: 4,
   },
-
-  // ------------------------------------
-  // 2. 개인 포트폴리오 & 블로그
-  // ------------------------------------
-  {
-    id: 'portfolio-blog',
-    title: '개인 포트폴리오 & 블로그',
-    period: '2024.12 - 현재',
-    role: '풀스택 개발 (1인 프로젝트)',
-    shortDescription: '포트폴리오와 기술 블로그를 통합한 개인 웹사이트',
-    description:
-      '포트폴리오와 기술 블로그를 통합한 개인 웹사이트입니다. 마크다운 기반 글 작성, 다크모드, 카테고리/태그 필터링 기능을 제공합니다.',
-    techStack: ['react', 'typescript', 'spring-boot', 'jpa', 'mariadb', 'github-actions'],
-    highlights: [
-      'GitHub Pages + Render를 활용한 무료 배포 환경 구축',
-      'CI/CD 파이프라인 구성으로 push 시 자동 배포',
-      'CSS 변수 기반 다크모드 구현 및 FOUC 문제 해결',
-    ],
-    background: `취업 준비를 위한 포트폴리오와 학습 내용을 정리할 블로그가 필요했습니다.
-기존 플랫폼 대신 직접 구축하여 풀스택 개발 역량을 보여주고자 했습니다.`,
-    challenges: [
-      {
-        problem: '다크모드 전환 시 화면 깜박임(FOUC) 발생',
-        solution: 'HTML head에 인라인 스크립트로 테마 사전 적용',
-        result: '깜박임 없는 부드러운 테마 전환',
-      },
-      {
-        problem: '무료로 풀스택 서비스 배포 필요',
-        solution: 'Frontend는 GitHub Pages, Backend는 Render 활용',
-        result: '월 비용 0원으로 서비스 운영',
-      },
-    ],
-    results: [
-      '완전 자동화된 CI/CD 파이프라인 구축',
-      'Lighthouse 성능 점수 95+ 달성',
-    ],
-    learned: [
-      '처음부터 끝까지 혼자 설계/구현하는 경험',
-      'CI/CD 파이프라인 구축 능력',
-      'SEO 및 웹 성능 최적화 기법',
-    ],
-    links: {
-      github: 'https://github.com/your-username/portfolio',
-      demo: 'https://your-username.github.io/portfolio',
-    },
-    isTeamProject: false,
-  },
-
   // ------------------------------------
   // 3. 관리자 대시보드 시스템
   // ------------------------------------

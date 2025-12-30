@@ -2,9 +2,8 @@
 // 포트폴리오 헬퍼 함수
 // ========================================
 
-import { projectsData } from './data';
-import { achievementsData } from './data';
-import type { ProjectData, AchievementData } from './types';
+import { projectsData, achievementsData } from './data';
+import type { ProjectData, AchievementData } from '@/types/portfolio';
 
 /**
  * 프로젝트 ID로 프로젝트 찾기
@@ -38,8 +37,10 @@ export const getAchievementsByCategory = () => {
 
 // 섹션 네비게이션 정보
 export const PORTFOLIO_SECTIONS = [
-  { id: 'intro', label: '소개' },
-  { id: 'projects', label: '프로젝트' },
+  { id: 'about', label: 'About Me' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'archiving', label: 'Archiving' },
+  { id: 'projects', label: 'Projects' },
 ] as const;
 
 export type PortfolioSectionId = (typeof PORTFOLIO_SECTIONS)[number]['id'];

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { FiGithub, FiExternalLink, FiFileText, FiUsers, FiUser } from 'react-icons/fi';
-import type { ProjectData } from '@/constants/portfolioData';
+import type { ProjectData } from '@/types/portfolio';
 import { SkillBadge } from '@/components/common';
 import styles from './ProjectsSection.module.css';
 
@@ -12,17 +12,17 @@ const ProjectsSection = ({ data }: ProjectsSectionProps) => {
   const navigate = useNavigate();
 
   const handleProjectClick = (projectId: string) => {
-    navigate(`/portfolio/project/${projectId}`);
+    navigate(`/project/${projectId}`);
   };
 
   const handleLinkClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // 카드 클릭 이벤트 전파 방지
+    e.stopPropagation();
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.sectionTitle}>프로젝트</h2>
+        <h2 className={styles.sectionTitle}>Projects</h2>
         <p className={styles.sectionDesc}>
           문제 해결 과정과 기술적 성장을 중심으로 정리했습니다.
         </p>

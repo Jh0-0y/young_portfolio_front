@@ -1,5 +1,5 @@
 // ========================================
-// 성과(Achievement) 관련 타입 정의
+// Achievement 관련 타입 정의 (프로젝트 상세용)
 // ========================================
 
 export type AchievementCategory = 'performance' | 'collaboration' | 'growth';
@@ -10,5 +10,5 @@ export interface AchievementData {
   title: string;
   description: string;
   metrics?: string;
-  projectRef?: string; // 연결된 프로젝트 ID
+  projectRef?: string;
 }

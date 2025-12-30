@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
-import { FiSun, FiMoon, FiDownload, FiChevronDown } from 'react-icons/fi';
+import { FiSun, FiMoon, FiDownload } from 'react-icons/fi';
 import { useDarkMode } from '@/hooks';
 import type { HeroData } from '@/types/portfolio';
-import { PORTFOLIO_SECTIONS, aboutData } from '@/constants/portfolio';
+import { PORTFOLIO_SECTIONS, aboutData, archivingData } from '@/constants/portfolio';
 import styles from './HeroSection.module.css';
 
 interface HeroSectionProps {
@@ -12,12 +12,12 @@ interface HeroSectionProps {
 const HeroSection = ({ data }: HeroSectionProps) => {
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
-  const [displayText, setDisplayText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // 스크롤 감지
+  // archivingData에서 GitHub, Blog 링크 찾기
+  const githubLink = archivingData.find((item) => item.type === 'github');
+  const blogLink = archivingData.find((item) => item.type === 'blog');
+
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
@@ -32,31 +32,6 @@ const HeroSection = ({ data }: HeroSectionProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 타이핑 효과
-  useEffect(() => {
-    const currentRole = data.roles[currentRoleIndex];
-    const typeSpeed = isDeleting ? 50 : 100;
-
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        if (displayText.length < currentRole.length) {
-          setDisplayText(currentRole.slice(0, displayText.length + 1));
-        } else {
-          setTimeout(() => setIsDeleting(true), 2000);
-        }
-      } else {
-        if (displayText.length > 0) {
-          setDisplayText(displayText.slice(0, -1));
-        } else {
-          setIsDeleting(false);
-          setCurrentRoleIndex((prev) => (prev + 1) % data.roles.length);
-        }
-      }
-    }, typeSpeed);
-
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, currentRoleIndex, data.roles]);
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -66,31 +41,24 @@ const HeroSection = ({ data }: HeroSectionProps) => {
     }
   };
 
-  const scrollToAbout = () => {
-    scrollToSection('about');
-  };
-
-  const handleDownloadResume = () => {
+  const handleDownloadPortfolio = () => {
     const link = document.createElement('a');
-    link.href = '/resume.pdf';
-    link.download = `${aboutData.name}_이력서.pdf`;
+    link.href = '/portfolio.pdf';
+    link.download = `${aboutData.name}_포트폴리오.pdf`;
     link.click();
   };
 
   const windowStyle = {
-    opacity: 1 - scrollProgress * 1.8,
-    transform: `scale(${1 + scrollProgress * 0.1}) translateY(${scrollProgress * -50}px)`,
-    pointerEvents: scrollProgress > 0.5 ? 'none' : 'auto',
+    '--scale': 1 + scrollProgress * 0.15,
+    '--border-radius': `${12 - scrollProgress * 12}px`,
+    opacity: 1 - scrollProgress * 1.5,
+    pointerEvents: scrollProgress > 0.6 ? 'none' : 'auto',
   } as React.CSSProperties;
 
   return (
     <section ref={sectionRef} className={styles.heroSection}>
-      {/* 배경 효과 */}
-      <div className={styles.bgGradient} />
-      <div className={styles.bgGrid} />
-      <div className={styles.bgGlow} />
+      <div className={styles.heroBackground} />
 
-      {/* 맥 윈도우 */}
       <div className={styles.macWindow} style={windowStyle}>
         {/* 타이틀바 */}
         <div className={styles.titlebar}>
@@ -115,13 +83,6 @@ const HeroSection = ({ data }: HeroSectionProps) => {
           <div className={styles.actions}>
             <button
               className={styles.actionButton}
-              onClick={handleDownloadResume}
-              title="이력서 다운로드"
-            >
-              <FiDownload size={16} />
-            </button>
-            <button
-              className={styles.actionButton}
               onClick={toggleDarkMode}
               title={darkMode ? '라이트 모드' : '다크 모드'}
             >
@@ -132,33 +93,96 @@ const HeroSection = ({ data }: HeroSectionProps) => {
 
         {/* Hero 콘텐츠 */}
         <div className={styles.windowContent}>
-          <div className={styles.heroContent}>
-            {/* 인사말 */}
-            <p className={styles.greeting}>{data.greeting}</p>
+          <div
+            className={styles.heroContent}
+            style={{ opacity: 1 - scrollProgress * 2 }}
+          >
+            {/* 메인 영역: 좌측 텍스트 + 우측 정보카드 */}
+            <div className={styles.mainArea}>
+              {/* 좌측: 텍스트 + 다운로드 버튼 */}
+              <div className={styles.textArea}>
+                <p className={styles.greeting}>👋 {data.headline.line1}</p>
 
-            {/* 이름 */}
-            <h1 className={styles.name}>
-              <span className={styles.nameText}>{data.name}</span>
-              <span className={styles.nameSuffix}>입니다</span>
-            </h1>
+                <h1 className={styles.headline}>
+                  {data.headline.line2 && (
+                    <>
+                      {data.headline.line2}
+                      <br />
+                    </>
+                  )}
+                  <span className={styles.accent}>{data.headline.accent}</span>
+                  {data.headline.line3}
+                </h1>
 
-            {/* 타이핑 역할 */}
-            <div className={styles.roleWrapper}>
-              <span className={styles.roleLabel}>I'm a </span>
-              <span className={styles.role}>
-                {displayText}
-                <span className={styles.cursor}>|</span>
-              </span>
+                <p className={styles.description}>{data.description}</p>
+
+                <button
+                  className={styles.downloadButton}
+                  onClick={handleDownloadPortfolio}
+                >
+                  <FiDownload size={18} />
+                  <span>포트폴리오 다운로드</span>
+                </button>
+              </div>
+
+              {/* 우측: 정보 카드 (heroData.infoCard 사용) */}
+              <div className={styles.infoCard}>
+                <div className={styles.infoItem}>
+                  <span className={styles.infoLabel}>ROLE</span>
+                  <span className={styles.infoValue}>{data.infoCard.role}</span>
+                </div>
+
+                <div className={styles.infoItem}>
+                  <span className={styles.infoLabel}>LOCATION</span>
+                  <span className={styles.infoValue}>{data.infoCard.location}</span>
+                </div>
+
+                <div className={styles.infoItem}>
+                  <span className={styles.infoLabel}>TECH STACK</span>
+                  <div className={styles.techTags}>
+                    {data.infoCard.techStack.map((tech) => (
+                      <span key={tech} className={styles.techTag}>
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className={styles.infoItem}>
+                  <span className={styles.infoLabel}>LINKS</span>
+                  <div className={styles.links}>
+                    {githubLink && (
+                      <a
+                        href={githubLink.url}
+                        className={styles.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {githubLink.title}
+                      </a>
+                    )}
+                    {githubLink && blogLink && (
+                      <span className={styles.linkDivider}>·</span>
+                    )}
+                    {blogLink && (
+                      <a
+                        href={blogLink.url}
+                        className={styles.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {blogLink.title}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* 설명 */}
-            <p className={styles.description}>{data.description}</p>
-
-            {/* 스크롤 유도 */}
-            <button className={styles.scrollDown} onClick={scrollToAbout}>
-              <span>Scroll Down</span>
-              <FiChevronDown className={styles.scrollIcon} />
-            </button>
+            {/* 하단 중앙: 스크롤 인디케이터 */}
+            <div className={styles.scrollIndicator}>
+              <span>↓</span>
+            </div>
           </div>
         </div>
       </div>

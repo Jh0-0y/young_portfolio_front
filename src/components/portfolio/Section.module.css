@@ -1,26 +1,29 @@
 .section {
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: var(--spacing-8) 0;
+  padding: var(--spacing-16) 0;
 }
 
 .fullHeight {
   min-height: 100vh;
-  padding-top: 80px; /* 헤더 높이 */
+  padding-top: var(--spacing-16);
 }
 
 .content {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1140px;
   margin: 0 auto;
   padding: 0 var(--spacing-6);
 }
 
 @media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-12) 0;
+  }
+
   .fullHeight {
     min-height: auto;
-    padding-top: 72px;
+    padding-top: var(--spacing-12);
     padding-bottom: var(--spacing-12);
   }
 
