@@ -8,4 +8,5 @@ export default function PublicRouter() {
         <Route path="project/:id" element={<ProjectDetailPage />} />
     </Routes>
   )
+
 }
