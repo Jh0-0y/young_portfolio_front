@@ -21,5 +21,5 @@ Delta 기반 전송 방식으로 네트워크 효율을 85% 개선하는 성과�
 함께 일하고 싶은 개발자가 되는 것이 목표입니다.`,
 
   location: '서울, 대한민국',
-  email: 'your-email@example.com',
+  email: 'idpc8090@gmail.com',
 };
