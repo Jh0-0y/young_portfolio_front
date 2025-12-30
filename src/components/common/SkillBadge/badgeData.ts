@@ -115,6 +115,11 @@ export const SKILL_BADGES: Record<string, BadgeConfig> = {
     color: '#59666C',
     iconSlug: 'hibernate',
   },
+  'mybatis': {
+    label: 'Mybatis',
+    color: '#59666C',
+    iconSlug: 'mybatis',
+  },
   'node': {
     label: 'Node.js',
     color: '#339933',
